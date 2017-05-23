@@ -6,4 +6,4 @@ npm install
 sudo node bin/www
 ```
 ## Demo
-- [n0rr.iptime.org](n0rr.iptime.org)
+- [n0rr.iptime.org](http://n0rr.iptime.org)
