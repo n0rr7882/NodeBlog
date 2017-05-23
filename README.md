@@ -2,7 +2,7 @@
 Node.js express와 mongodb로 작성한 개인 블로그
 ## Install
 ```
-$ npm install
+$ sudo npm install
 $ sudo node bin/www
 ```
 ## Demo
