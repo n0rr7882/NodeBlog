@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>N0rR's blog</title>
+    <link rel="stylesheet" href="/css/input.css">
+    <link rel='stylesheet' href='/css/body-post.css' />
+    <link rel='stylesheet' href='/css/header.css' />
+    <link rel='stylesheet' href='/css/footer.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css"/>
+    <link rel="stylesheet" href="/css/viewer.css">
+    <link rel="stylesheet" href="/css/hljs.css">
+    <link rel="stylesheet" href="/css/mediaquery.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <header>
+        <div id="profile">
+            <div id="profile-icon"></div>
+            <a href="/"><div id="profile-image"></div></a>
+            <div id="profile-name">
+                <a href="/"><p  style="color:#87e7be">N0rR</p></a>
+            </div>
+            <div id="profile-line"></div>
+            <div id="profile-info">
+                <p>Web Full-stack</p>
+                <p>Node.js</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section id="preview">
+            <div class="post-image" style="background-image: url(/<%= post._doc.preview %>)"></div>
+        </section>
+        <section id="contents">
+            <div class="post">
+                <div class="post-info">
+                    <h1 class="post-title"><%= post._doc.title %></h1>
+                    <p class="post-etc">
+                    <i class="fa fa-calendar" aria-hidden="true"></i> <%= post._doc.date.getFullYear()+'/'+post._doc.date.getMonth()+'/'+post._doc.date.getDate()+' '+post._doc.date.getHours()+':'+post._doc.date.getMinutes() %> <i class="fa fa-folder-open-o" aria-hidden="true"></i> <%= post._doc.category %> <i class="fa fa-eye" aria-hidden="true"></i> <%= post._doc.views %>
+                    </p>
+                </div>
+                <hr>
+                <div class="post-content"><%- post._doc.content %></div>
+            </div>
+            <div class="comments">
+            <% for(var i = 0; i < post._doc.comments.length; i++) { %>
+                <div class="comment">
+                    <h3 class="comment-author"><i class="fa fa-user-circle-o" aria-hidden="true"></i> <%= post._doc.comments[i].author %></h3>
+                    <p class="comment-time">
+                    <i class="fa fa-calendar" aria-hidden="true"></i> <%= post._doc.comments[i].date.getFullYear()+'/'+post._doc.comments[i].date.getMonth()+'/'+post._doc.comments[i].date.getDate()+' '+post._doc.comments[i].date.getHours()+':'+post._doc.comments[i].date.getMinutes()+':'+post._doc.comments[i].date.getSeconds() %>
+                    </p>
+                    <p class="comment-content"><%= post._doc.comments[i].comment %></p>
+                </div>
+                <% } %>
+            </div>
+            <div class="comments">
+                <div class="comment">
+                    <form action="/post/<%= post._doc._id %>" method="post">
+                        <input type="text" name="author" placeholder="작성자">
+                        <hr>
+                        <textarea name="content" placeholder="내용 추가"></textarea>
+                        <input class="button" style="color:white;background-color:#87e7be;width:100%" type="submit" name="submit" value="등록">
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p id="copyright">2017 ⓒ norr.kr all rights reserved.</p>
+    </footer>
+  </body>
+</html>

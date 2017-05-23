@@ -1,0 +1,54 @@
+@media screen and (max-width:1024px) {
+    h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 1.6rem;
+    }
+    h3 {
+        font-size: 1.2rem;
+    }
+    header {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    main,
+    footer {
+        margin-left: 0;
+    }
+    #profile {
+        width: 100%;
+    }
+    #profile-image,
+    #profile-line,
+    #profile-info {
+        display: none;
+    }
+    .post, .post-list {
+        display: block;
+        padding: 0;
+    }
+    .post-image {
+        display: block;
+        border-radius: 0;
+        height: 66vw;
+        margin: 0;
+    }
+    #copyright {
+        font-size: 1rem;
+    }
+    .comments {
+        padding: 10px;
+    }
+    .swiper-container {
+        display: none;
+    }
+    .post-content {
+        margin: 10px;
+    }
+    .comment-time {
+        position: absolute;
+        right: 10px;
+    }
+}

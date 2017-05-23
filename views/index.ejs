@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>N0rR's blog</title>
+    <link rel='stylesheet' href='/css/body.css' />
+    <link rel='stylesheet' href='/css/header.css' />
+    <link rel='stylesheet' href='/css/footer.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css"/>
+    <link rel='stylesheet' href="/css/image-slider.css"/>
+    <link rel="stylesheet" href="/css/mediaquery.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <header>
+        <div id="profile">
+            <div id="profile-icon"></div>
+            <a href="/"><div id="profile-image"></div></a>
+            <div id="profile-name">
+                <a href="/"><p style="color:#87e7be">N0rR</p></a>
+            </div>
+            <div id="profile-line"></div>
+            <div id="profile-info">
+                <p>Web Full-stack</p>
+                <p>Node.js</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section id="preview">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <% for(var i = 0; i < posts.length; i++) { %>
+                    <div class="swiper-slide" style="background-image:url(<%= posts[i]._doc.preview %>)"></div>
+                    <% } %>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>
+            <script src="/js/image-slider.js"></script>
+        </section>
+        <section id="contents">
+            <% for(var i = 0; i < posts.length; i++) { %>
+            <a href="/post/<%= posts[i]._doc._id %>">
+                <div class="post-list">
+                    <div class="post-image" style="background-image: url(<%= posts[i]._doc.preview %>)"></div>
+                    <div class="post-info">
+                        <h2 class="post-title"><%= posts[i]._doc.title %></h2>
+                        <p class="post-etc"> 
+                        <i class="fa fa-calendar" aria-hidden="true"></i> <%= posts[i]._doc.date.getFullYear()+'/'+posts[i]._doc.date.getMonth()+'/'+posts[i]._doc.date.getDate()+' '+posts[i]._doc.date.getHours()+':'+posts[i]._doc.date.getMinutes() %> <i class="fa fa-folder-open-o" aria-hidden="true"></i> <%= posts[i]._doc.category %> <i class="fa fa-eye" aria-hidden="true"></i> <%= posts[i]._doc.views %>
+                        </p>
+                        <p class="post-preview">
+                        <% if(posts[i]._doc.content.length >= 150) { %>
+                            <%= (md.render(posts[i]._doc.content)).replace(/(<([^>]+)>)/ig,"").substr(0, 150) + '...' %>
+                        <% } else { %>
+                            <%= (md.render(posts[i]._doc.content)).replace(/(<([^>]+)>)/ig,""); %>
+                        <% } %>
+                        </p>
+                    </div>
+                </div>
+            </a>
+            <% } %>
+        </section>
+    </main>
+    <footer>
+        <p id="copyright">2017 ⓒ norr.kr all rights reserved.</p>
+    </footer>
+  </body>
+</html>

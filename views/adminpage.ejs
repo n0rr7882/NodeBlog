@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>N0rR's blog</title>
+    <link rel="stylesheet" href="/css/input.css">
+    <link rel='stylesheet' href='/css/body-post.css' />
+    <link rel='stylesheet' href='/css/header.css' />
+    <link rel='stylesheet' href='/css/footer.css' />
+    <link rel='stylesheet' href="/css/image-slider.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css"/>
+    <link rel="stylesheet" href="/css/mediaquery.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style media="screen">
+        a {
+            text-decoration: none;
+            color: #3b3a65;
+        }
+        thead {
+            padding: 0;
+            margin: 0;
+            background-color: #3b3a65;
+            color: white
+        }
+        th, td, td a {
+            padding: 20px;
+            font-size: 1.5rem
+        }
+        tbody tr:hover {
+            background-color: #eee;
+        }
+        table {
+            border-radius: 5px;
+            transition: box-shadow 0.5s;
+            border-collapse: collapse;
+            text-align: center;
+            width: 100%;
+        }
+        table:hover {
+            box-shadow: 0 0 10px
+        }
+        ul {
+
+        }
+        ul * {
+            font-size: 1.5rem;
+            margin: 10px;
+        }
+    </style>
+  </head>
+  <body>
+    <header>
+        <div id="profile">
+            <div id="profile-icon"></div>
+            <a href="/"><div id="profile-image"></div></a>
+            <div id="profile-name">
+                <a href="/admin/main"><p style="color:#87e7be"><i class="fa fa-lock" aria-hidden="true"></i></p></a>
+            </div>
+            <div id="profile-line"></div>
+            <div id="profile-info">
+                <p>Web Full-stack</p>
+                <p>Node.js</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section id="preview">
+            <div class="post-image" style="background-image: url(/images/colors.png)"></div>
+        </section>
+        <section id="contents">
+            <div class="post">
+                <div class="post-info">
+                    <h1>관리자 페이지</h1>
+                    <hr>
+                    <ul>
+                        <li><a href="/admin/write">포스트 작성</a></li>
+                        <li><a href="/admin/delete">포스트 삭제</a></li>
+                        <li><a href="/admin/category">카테고리 관리</a></li>
+                        <li><a href="/admin/comments">코멘트 관리</a></li>
+                        <li><a href="/admin">관리자 계정</a></li>
+                        <li><a href="/admin/logout" style="color:red">로그아웃</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p id="copyright">2017 ⓒ norr.kr all rights reserved.</p>
+    </footer>
+  </body>
+</html>

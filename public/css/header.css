@@ -1,0 +1,50 @@
+p {
+    margin: 5px;
+}
+main {
+    margin-left: 260px;
+}
+header {
+    position: fixed;
+    width: 260px;
+    height: 100vh;
+    background-color: #131127;
+    color: #87e7be;
+}
+#profile {
+    width: 260px;
+    text-align: center;
+    padding-top: 20px;
+}
+#profile-line {
+    border: 1px solid #87e7be;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 20px;
+}
+#profile-icon {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-image: url("/images/code-icon.png");
+    background-size: cover;
+}
+#profile-image {
+    transition: filter 0.5s;
+    display: inline-block;
+    width: 180px;
+    height: 180px;
+    background-image: url("/images/profile.jpg");
+    background-position: center;
+    background-size: cover;
+    border-radius: 50px;
+    border: 5px solid #87e7be;
+}
+#profile-image:hover {
+    filter: brightness(1.5);
+}
+#profile-name p {
+    margin: 10px;
+    font-size: 3rem;
+    font-weight: bold;
+}

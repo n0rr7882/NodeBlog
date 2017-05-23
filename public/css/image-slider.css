@@ -1,0 +1,16 @@
+.swiper-container {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: white;
+}
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 300px;
+    height: 300px;
+}
+.swiper-slide, .swiper-slide-shadow-right, .swiper-slide-shadow-left {
+    border-radius: 20px;
+    min-width: 50%;
+}

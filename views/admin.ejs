@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>N0rR's blog</title>
+    <link rel="stylesheet" href="/css/input.css">
+    <link rel='stylesheet' href='/css/body-post.css' />
+    <link rel='stylesheet' href='/css/header.css' />
+    <link rel='stylesheet' href='/css/footer.css' />
+    <link rel='stylesheet' href="/css/image-slider.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css"/>
+    <link rel="stylesheet" href="/css/mediaquery.css"/>
+    <style media="screen">
+        input {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+  </head>
+  <body>
+    <header>
+        <div id="profile">
+            <div id="profile-icon"></div>
+            <a href="/"><div id="profile-image"></div></a>
+            <div id="profile-name">
+                <a href="/"><p  style="color:#87e7be">N0rR</p></a>
+            </div>
+            <div id="profile-line"></div>
+            <div id="profile-info">
+                <p>Web Full-stack</p>
+                <p>Node.js</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section id="preview">
+            <div class="post-image" style="background-image: url(/images/colors.png)"></div>
+        </section>
+        <section id="contents">
+            <div class="post" style="text-align: center">
+                <div class="post-info">
+                    <form action="/admin" method="post">
+                        <h1>관리자 로그인</h1>
+                        <input type="text" name="id" placeholder="ID">
+                        <input type="password" name="pw" placeholder="Password">
+                        <input class="button" style="color:white;background-color:#87e7be" type="submit" name="submit" value="로그인">
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p id="copyright">2017 ⓒ norr.kr all rights reserved.</p>
+    </footer>
+  </body>
+</html>

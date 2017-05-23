@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>N0rR's blog</title>
+    <link rel='stylesheet' href='/css/body-post.css' />
+    <link rel='stylesheet' href='/css/header.css' />
+    <link rel='stylesheet' href='/css/footer.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css"/>
+    <link rel='stylesheet' href="/css/image-slider.css"/>
+    <link rel="stylesheet" href="/css/mediaquery.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style media="screen">
+    a {
+        text-decoration: none;
+        color: #87e7be;
+    }
+    td>a {
+        color: #3b3a65;
+    }
+    th, td, td a {
+        padding: 10px;
+    }
+    tbody tr:hover {
+        background-color: #eee;
+    }
+    table {
+        border-radius: 5px;
+        transition: box-shadow 0.5s;
+        border-collapse: collapse;
+        text-align: center;
+        width: 100%;
+    }
+    table:hover {
+        box-shadow: 0 0 10px
+    }
+    </style>
+  </head>
+  <body>
+    <header>
+        <div id="profile">
+            <div id="profile-icon"></div>
+            <a href="/"><div id="profile-image"></div></a>
+            <div id="profile-name">
+                <a href="/admin/main"><p><i class="fa fa-lock" aria-hidden="true"></i></p></a>
+            </div>
+            <div id="profile-line"></div>
+            <div id="profile-info">
+                <a href="/admin/write"><p>포스트 작성</p></a>
+                <a href="/admin/delete"><p>포스트 삭제</p></a>
+                <a href="/admin/category"><p>카테고리 관리</p></a>
+                <a href="/admin/comments"><p>코멘트 관리</p></a>
+                <p>관리자 계정</p>
+                <a href="/admin/logout"><p style="color:red">로그아웃</p></a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section id="preview">
+            <div class="post-image" style="background-image: url(/images/colors.png)"></div>
+        </section>
+        <section id="contents">
+            <% for(var i = 0; i < posts.length; i++) { %>
+                <div class="post">
+                    <div class="post-info">
+                        <h2 class="post-title"><%= posts[i]._doc.title %></h2>
+                        <p class="post-etc">
+                        <i class="fa fa-calendar" aria-hidden="true"></i> <%= posts[i]._doc.date.getFullYear()+'/'+posts[i]._doc.date.getMonth()+'/'+posts[i]._doc.date.getDate()+' '+posts[i]._doc.date.getHours()+':'+posts[i]._doc.date.getMinutes() %> <i class="fa fa-folder-open-o" aria-hidden="true"></i> <%= posts[i]._doc.category %> <i class="fa fa-eye" aria-hidden="true"></i> <%= posts[i]._doc.views %>
+                        </p>
+                        <table>
+                            <thead>
+                                <th><i class="fa fa-user-o" aria-hidden="true"></i></th>
+                                <th><i class="fa fa-calendar" aria-hidden="true"></th>
+                                <th><i class="fa fa-comment-o" aria-hidden="true"></i></th>
+                                <th><i class="fa fa-trash" aria-hidden="true"></i></th>
+                            </thead>
+                            <tbody>
+                                <% for(var j = 0; j < posts[i]._doc.comments.length; j++) { %>
+                                <tr>
+                                    <td><%= posts[i]._doc.comments[j].author %></td>
+                                    <td><%= posts[i]._doc.comments[j].date.getFullYear()+'/'+posts[i]._doc.comments[j].date.getMonth()+'/'+posts[i]._doc.comments[j].date.getDate()+' '+posts[i]._doc.comments[j].date.getHours()+':'+posts[i]._doc.comments[j].date.getMinutes()+':'+posts[i]._doc.date.getSeconds() %></td>
+                                    <td style="text-align:left"><%= posts[i]._doc.comments[j].comment %></td>
+                                    <td><a href="/admin/comments/<%= posts[i]._doc._id %>/<%= posts[i]._doc.comments[j]._id %>" style="color:#ff6464">
+                                        DELETE
+                                    </a></td>
+                                </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <% } %>
+        </section>
+    </main>
+    <footer>
+        <p id="copyright">2017 ⓒ norr.kr all rights reserved.</p>
+    </footer>
+  </body>
+</html>
