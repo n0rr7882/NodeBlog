@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/viewer.css">
     <link rel="stylesheet" href="/css/hljs.css">
     <link rel="stylesheet" href="/css/mediaquery.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css"/>
   </head>
   <body>
     <header>
@@ -44,6 +44,7 @@
                 <div class="post-content"><%- post._doc.content %></div>
             </div>
             <div class="comments">
+                <p><h3><%= post._doc.comments.length %>개의 댓글</h3></p>
             <% for(var i = 0; i < post._doc.comments.length; i++) { %>
                 <div class="comment">
                     <h3 class="comment-author"><i class="fa fa-user-circle-o" aria-hidden="true"></i> <%= post._doc.comments[i].author %></h3>
