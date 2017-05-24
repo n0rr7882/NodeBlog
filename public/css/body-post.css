@@ -40,6 +40,9 @@ h3 {
     margin-bottom: 10px;
 }
 .post, .comments {
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
     padding-left: 100px;
     padding-right: 100px;
     background-color: white;
@@ -47,22 +50,25 @@ h3 {
     color: #3b3a65;
 }
 .comment {
+    position: relative;
     padding-top: 10px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
 }
 .comment-author, .comment-time {
     display: inline-block;
 }
 .comment-time {
     position: absolute;
-    right: 110px;
+    right: 10px;
 }
 .post-image {
     display: block;
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
     width: 100%;
     height: 60vh;
-
     background-position: center;
     background-size: cover;
 }
