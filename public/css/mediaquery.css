@@ -29,6 +29,9 @@
         display: block;
         padding: 0;
     }
+    .wrapper {
+        flex-direction: column;
+    }
     .post-image {
         display: block;
         border-radius: 0;
@@ -41,7 +44,7 @@
     .comments {
         padding: 10px;
     }
-    .swiper-container {
+    .swiper-container, #profile-icon {
         display: none;
     }
     .post-content {
