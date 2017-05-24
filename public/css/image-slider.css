@@ -3,6 +3,7 @@
     padding-top: 50px;
     padding-bottom: 50px;
     background-color: white;
+    border-bottom: 1px solid #ccc;
 }
 .swiper-slide {
     background-position: center;
@@ -12,5 +13,5 @@
 }
 .swiper-slide, .swiper-slide-shadow-right, .swiper-slide-shadow-left {
     border-radius: 20px;
-    min-width: 50%;
+    min-width: auto;
 }
