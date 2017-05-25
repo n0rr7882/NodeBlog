@@ -11,7 +11,7 @@ Node.js express와 mongodb로 작성한 개인 블로그
 그리고 실행시키면 80번 포트에 열린다.
 ```
 $ sudo npm install
-$ npm start
+$ sudo npm start
 ```
 ## Demo
 - [n0rr.iptime.org](http://n0rr.iptime.org)
