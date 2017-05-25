@@ -1,4 +1,5 @@
 var express = require('express');
+var fs = require('fs');
 var Post = require('../models/postmodel');
 var Category = require('../models/categorymodel');
 
@@ -101,6 +102,21 @@ router.post('/category', function (req, res, next) {
         } else {
             res.send("<script>alert('카테고리 이름이 잘못되었습니다.');history.back()</script>");
         }
+    }
+});
+
+router.get('/uploaded', function (req, res, next) {
+    if (req.session.is_login === true) {
+        fs.readdir(__dirname + '/../uploads/', function (err, files) {
+            if (err) {
+                console.dir(err.stack);
+                res.render('error');
+                return;
+            }
+            res.render('uploaded', { files: files });
+        });
+    } else {
+        res.send("<script>alert('접근 권한이 없습니다.');location.href='/admin'</script>");
     }
 });
 

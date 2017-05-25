@@ -10,7 +10,7 @@
     <link rel='stylesheet' href="/css/image-slider.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css"/>
     <link rel="stylesheet" href="/css/mediaquery.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css"/>
     <style media="screen">
         input {
             margin-top: 10px;
@@ -68,24 +68,17 @@
         <section id="contents">
             <div class="post" style="text-align: center">
                 <div class="post-info">
-                    <h1>카테고리 관리</h1>
+                    <h1>업로드 파일 관리</h1>
                     <hr>
-                    <form action="/admin/category" method="post">
-                        <input type="text" name="name" placeholder="카테고리 생성">
-                        <input class="button" style="color:white;background-color:#87e7be" type="submit" name="submit" value="생성">
-                    </form>
-                    <hr>
-                    <h3>카테고리 삭제</h3>
-                    <p>* 해당 카테고리의 게시글은 모두 삭제됩니다.</p>
                     <table style="width:100%">
                         <thead>
                             <th><i class="fa fa-folder-open-o" aria-hidden="true"></i></th>
                             <th><i class="fa fa-trash" aria-hidden="true"></i></th>
                         </thead>
                         <tbody>
-                            <% for(var i = 0; i < categories.length; i++) { %>
-                                <tr><td><%= categories[i]._doc.name %></td>
-                                <td><a href="/admin/category/<%= categories[i]._doc.name %>" style="color:#ff6464">DELETE</a></td></tr>
+                            <% for(var i = 0; i < files.length; i++) { %>
+                                <tr><td><%= '/uploads/'+files[i] %></td>
+                                <td>DELETE</td></tr>
                             <% } %>
                         </tbody>
                     </table>
