@@ -1,52 +1,49 @@
 var express = require('express');
 var fs = require('fs');
-var Post = require('../models/postmodel');
+var PController = require('../controllers/postcontroller');
 var md = require('markdown-it')();
 
 var router = express.Router();
 
-router.post('/', function (req, res, next) {
+router.post('/', (req, res, next) => {
     if (req.body.title === '') req.body.title = ' ';
-    Post.find({ title: { $regex: req.body.title } }, function (err, posts) {
-        if (err) {
-            console.dir(err.stack);
-            return;
-        }
-        if (posts.length != 0) {
-            res.render('selectpost', { posts: posts, md: md });
+    PController.findPostsByTitle(req.body.title, (err, posts) => {
+        if (!err) {
+            if (posts.length != 0) {
+                res.render('selectpost', { posts: posts, md: md });
+            } else {
+                res.send("<script>alert('일치하는 포스트가 존재하지 않습니다.');location.href='/admin/delete'</script>");
+            }
         } else {
-            res.send("<script>alert('일치하는 포스트가 존재하지 않습니다.');location.href='/admin/delete'</script>");
+            console.error(err.stack);
+            res.render('error');
         }
-    }).sort({ date: -1 });
+    });
 });
 
-router.get('/:postid', function (req, res, next) {
-    Post.findOne({ _id: req.params.postid }, (err, post) => {
-        if (err) {
-            console.dir(err.stack);
-            return;
-        }
-        if (post) {
-            if (post._doc.preview !== "images/colors.png") {
-
-                fs.unlink(post._doc.preview, function (err) {
-                    if (err) {
-                        console.dir(err.stack);
-                        return;
-                    } else {
+router.get('/:postId', (req, res, next) => {
+    PController.findPostByObjectId(req.params.postId, (err, post) => {
+        if (!err) {
+            if (post._doc.preview !== 'images/colors.png') {
+                fs.unlink(post._doc.preview, (err) => {
+                    if (!err) {
                         console.log(post._doc.preview + ' successfully deleted!');
+                    } else {
+                        console.error(err.stack);
                     }
                 });
             }
-            Post.remove({ _id: req.params.postid }, function (err, results) {
-                if (err) {
-                    console.dir(err.stack);
-                    return;
-                }
-                if (results) {
-                    res.send("<script>alert('정상적으로 삭제 되었습니다.');location.href='/admin'</script>");
+            PController.deletePostByObjectId(req.params.postId, (err) => {
+                if (!err) {
+                    res.send("<script>alert('정상적으로 삭제 되었습니다.');history.back()</script>");
+                } else {
+                    console.error(err.stack);
+                    res.send("<script>alert('삭제 중 에러 발생.');history.back()</script>");
                 }
             });
+        } else {
+            console.error(err.stack);
+            res.render('error');
         }
     });
 });

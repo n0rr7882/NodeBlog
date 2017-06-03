@@ -19,6 +19,7 @@
         color: #87e7be;
     }
     .deletebutton {
+        margin-top: 10px;
         border-radius: 10px;
         padding: 5px;
         color:white;
@@ -28,6 +29,25 @@
     }
     .post-info {
         width: 100%;
+    }
+    td>a {
+        color: #3b3a65;
+    }
+    th, td, td a {
+        padding: 10px;
+    }
+    tbody tr:hover {
+        background-color: #eee;
+    }
+    table {
+        border-radius: 5px;
+        transition: box-shadow 0.5s;
+        border-collapse: collapse;
+        text-align: center;
+        width: 100%;
+    }
+    table:hover {
+        box-shadow: 0 0 10px
     }
     </style>
   </head>
@@ -44,7 +64,6 @@
                 <a href="/admin/write"><p>포스트 작성</p></a>
                 <a href="/admin/delete"><p>포스트 삭제</p></a>
                 <a href="/admin/category"><p>카테고리 관리</p></a>
-                <a href="/admin/comments"><p>코멘트 관리</p></a>
                 <a href="/admin/uploaded"><p>파일 관리</p></a>
                 <p>관리자 계정</p>
                 <a href="/admin/logout"><p style="color:red">로그아웃</p></a>
@@ -55,22 +74,44 @@
         <section id="contents">
             <% for(var i = 0; i < posts.length; i++) { %>
                 <div class="post">
-                    <div class="post-image" style="background-image: url(/<%= posts[i]._doc.preview %>)"></div>
-                    <div class="post-info">
-                        <h2 class="post-title"><%= posts[i]._doc.title %></h2>
-                        <p class="post-etc">
-                        <i class="fa fa-calendar" aria-hidden="true"></i> <%= posts[i]._doc.date.getFullYear()+'/'+posts[i]._doc.date.getMonth()+'/'+posts[i]._doc.date.getDate()+' '+posts[i]._doc.date.getHours()+':'+posts[i]._doc.date.getMinutes() %> <i class="fa fa-folder-open-o" aria-hidden="true"></i> <%= posts[i]._doc.category %> <i class="fa fa-eye" aria-hidden="true"></i> <%= posts[i]._doc.views %>
-                        </p>
-                        <p class="post-preview">
-                        <% if(posts[i]._doc.content.length >= 150) { %>
-                            <%= md.render(posts[i]._doc.content).replace(/(<([^>]+)>)/ig,"").substr(0, 150) + '...' %>
-                        <% } else { %>
-                            <%= md.render(posts[i]._doc.content).replace(/(<([^>]+)>)/ig,"") %>
-                        <% } %>
-                        </p>
-                        <a href="/admin/delete/<%= posts[i]._doc._id %>">
-                            <div class="deletebutton">DELETE</div>
-                        </a>
+                    <div class="wrapper">
+                        <div class="post-image" style="background-image: url(/<%= posts[i]._doc.preview %>)"></div>
+                        <div class="post-info">
+                            <h2 class="post-title"><%= posts[i]._doc.title %></h2>
+                            <p class="post-etc">
+                                <i class="fa fa-calendar" aria-hidden="true"></i> <%= posts[i]._doc.date.getFullYear()+'/'+posts[i]._doc.date.getMonth()+'/'+posts[i]._doc.date.getDate()+' '+posts[i]._doc.date.getHours()+':'+posts[i]._doc.date.getMinutes() %> <i class="fa fa-folder-open-o" aria-hidden="true"></i> <%= posts[i]._doc.category %> <i class="fa fa-eye" aria-hidden="true"></i> <%= posts[i]._doc.views %>
+                            </p>
+                            <p class="post-preview">
+                                <% if(posts[i]._doc.content.length >= 150) { %>
+                                    <%= md.render(posts[i]._doc.content).replace(/(<([^>]+)>)/ig,"").substr(0, 150) + '...' %>
+                                <% } else { %>
+                                    <%= md.render(posts[i]._doc.content).replace(/(<([^>]+)>)/ig,"") %>
+                                <% } %>
+                            </p>
+                            <table>
+                                <thead>
+                                    <th><i class="fa fa-user-o" aria-hidden="true"></i></th>
+                                    <th><i class="fa fa-calendar" aria-hidden="true"></i></th>
+                                    <th><i class="fa fa-comment-o" aria-hidden="true"></i></th>
+                                    <th><i class="fa fa-trash" aria-hidden="true"></i></th>
+                                </thead>
+                                <tbody>
+                                    <% for(var j = 0; j < posts[i]._doc.comments.length; j++) { %>
+                                    <tr>
+                                        <td><%= posts[i]._doc.comments[j].author %></td>
+                                        <td><%= posts[i]._doc.comments[j].date.getFullYear()+'/'+posts[i]._doc.comments[j].date.getMonth()+'/'+posts[i]._doc.comments[j].date.getDate()+' '+posts[i]._doc.comments[j].date.getHours()+':'+posts[i]._doc.comments[j].date.getMinutes()+':'+posts[i]._doc.date.getSeconds() %></td>
+                                        <td style="text-align:left"><%= posts[i]._doc.comments[j].comment %></td>
+                                        <td><a href="/admin/comments/<%= posts[i]._doc._id %>/<%= posts[i]._doc.comments[j]._id %>" style="color:#ff6464">
+                                            DELETE
+                                        </a></td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                            <a href="/admin/delete/<%= posts[i]._doc._id %>">
+                                <div class="deletebutton">DELETE</div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             <% } %>

@@ -21,8 +21,10 @@
             </div>
             <div id="profile-line"></div>
             <div id="profile-info">
-                <p>Web Full-stack</p>
-                <p>Node.js</p>
+            <a href="/"><p>All Posts</p></a>
+                <% for(var i = 0; i < categories.length; i++) { %>
+                    <a href="/category/<%= categories[i]._doc.name %>"><p><%= categories[i]._doc.name %></p></a>
+                <% } %>
             </div>
         </div>
     </header>
@@ -31,7 +33,7 @@
             <div class="swiper-container">
                 <div class="swiper-wrapper">
                     <% for(var i = 0; i < posts.length; i++) { %>
-                    <div class="swiper-slide" style="background-image:url(<%= posts[i]._doc.preview %>)"></div>
+                    <div class="swiper-slide" style="background-image:url(/<%= posts[i]._doc.preview %>)"></div>
                     <% } %>
                 </div>
                 <div class="swiper-pagination"></div>
@@ -46,7 +48,7 @@
             <a href="/post/<%= posts[i]._doc._id %>">
                 <div class="post-list">
                     <div class="wrapper">
-                        <div class="post-image" style="background-image: url(<%= posts[i]._doc.preview %>)"></div>
+                        <div class="post-image" style="background-image: url(/<%= posts[i]._doc.preview %>)"></div>
                         <div class="post-info">
                             <h2 class="post-title"><%= posts[i]._doc.title %></h2>
                             <p class="post-etc">
@@ -64,6 +66,19 @@
                 </div>
             </a>
             <% } %>
+        </section>
+        <section id="page-index">
+            <div id="index-wrapper">
+                <% var addr = '';
+                if(categoryStatus) {
+                    addr = '/category/' + categoryStatus + '/';
+                } else {
+                    addr = '/pages/';
+                } %>
+                <% for(var i = 0; i < (posts.length / 5) + 1; i++) { %>
+                    <a href="<%= addr + i %>"><p><%= i + 1 %></p></a>
+                <% } %>
+            </div>
         </section>
     </main>
     <footer>

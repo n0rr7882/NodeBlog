@@ -48,3 +48,9 @@ header {
     font-size: 3rem;
     font-weight: bold;
 }
+#profile-info a {
+    color: #87e7be;
+}
+#profile-info a:hover {
+    color: white;
+}

@@ -76,3 +76,27 @@ h3 {
 .post-list:hover {
     filter: brightness(80%);
 }
+#page-index {
+    background: white;
+}
+#index-wrapper {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+}
+#index-wrapper a {
+    margin: 10px;
+    color: white;
+    width: 50px;
+    height: 50px;
+    background: #3b3a65;
+    border-radius: 15px;
+    text-align: center;
+    vertical-align: middle
+}
+#index-wrapper a p {
+    font-size: 2rem;
+    margin-top: 7.5px;
+}

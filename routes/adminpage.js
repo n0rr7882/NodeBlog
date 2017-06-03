@@ -1,12 +1,12 @@
 var express = require('express');
 var fs = require('fs');
-var Post = require('../models/postmodel');
-var Category = require('../models/categorymodel');
+var PController = require('../controllers/postcontroller');
+var CController = require('../controllers/categorycontroller');
 
 var router = express.Router();
 
 /* GET home page. */
-router.get('/main', function (req, res, next) {
+router.get('/main', (req, res, next) => {
     if (req.session.is_login === true) {
         res.render('adminpage');
     } else {
@@ -14,21 +14,22 @@ router.get('/main', function (req, res, next) {
     }
 });
 
-router.get('/write', function (req, res, next) {
+router.get('/write', (req, res, next) => {
     if (req.session.is_login === true) {
-        Category.find({}, function (err, categories) {
-            if (err) {
-                console.dir(err);
-                return;
+        CController.findCategorys((err, categories) => {
+            if (!err) {
+                res.render('postform', { categories: categories });
+            } else {
+                console.error(err.stack);
+                res.render('error');
             }
-            res.render('postform', { categories: categories });
         });
     } else {
         res.send("<script>alert('접근 권한이 없습니다.');location.href='/admin'</script>");
     }
 });
 
-router.get('/delete', function (req, res, next) {
+router.get('/delete', (req, res, next) => {
     if (req.session.is_login === true) {
         res.render('searchpost');
     } else {
@@ -36,17 +37,14 @@ router.get('/delete', function (req, res, next) {
     }
 });
 
-router.get('/comments', function (req, res, next) {
+router.get('/category', (req, res, next) => {
     if (req.session.is_login === true) {
-        Post.find({}, function (err, posts) {
-            if (err) {
-                console.dir(err.stack);
-                return;
-            }
-            if (posts) {
-                res.render('selectcomment', { posts: posts });
+        CController.findCategorys((err, categories) => {
+            if (!err) {
+                res.render('category', { categories: categories });
             } else {
-                res.send("<script>alert('포스트가 존재하지 않습니다.');history.back()</script>");
+                console.error(err.stack);
+                res.render('error');
             }
         });
     } else {
@@ -54,80 +52,70 @@ router.get('/comments', function (req, res, next) {
     }
 });
 
-router.get('/category', function (req, res, next) {
+router.get('/category/:name', (req, res, next) => {
     if (req.session.is_login === true) {
-        Category.find({}, function (err, categories) {
-            if (err) {
-                console.dir(err);
-                return;
+        CController.deleteCategory(req.params.name, (err) => {
+            if (!err) {
+                PController.deletePostsByCategory(req.params.name, (err) => {
+                    if (!err) {
+                        res.send("<script>alert('정상적으로 삭제되었습니다.');location.href='/admin/category'</script>");
+                    } else {
+                        console.error(err.stack);
+                        res.send("<script>alert('포스트 삭제 중 오류 발생.');history.back()</script>");
+                    }
+                });
+            } else {
+                res.send("<script>alert('카테고리 삭제 중 오류 발생.');history.back()</script>");
             }
-            res.render('category', { categories: categories });
         });
     } else {
         res.send("<script>alert('접근 권한이 없습니다.');location.href='/admin'</script>");
     }
 });
 
-router.get('/category/:name', function (req, res, next) {
+router.post('/category', (req, res, next) => {
     if (req.session.is_login === true) {
-        Category.remove({ name: req.params.name }, function (err, results) {
-            if (err) {
-                console.dir(err);
-                return;
-            }
-            Post.remove({ category: req.params.name }, function (err, results) {
-                if (err) {
-                    console.dir(err.stack);
-                    return;
-                }
-                res.send("<script>alert('정상적으로 삭제되었습니다.');location.href='/admin/category'</script>");
-            });
-        });
-    } else {
-        res.send("<script>alert('접근 권한이 없습니다.');location.href='/admin'</script>");
-    }
-});
-
-router.post('/category', function (req, res, next) {
-    if (req.session.is_login === true) {
-        if (req.body.name != '') {
-            var category = new Category({ name: req.body.name });
-            category.save(function (err) {
-                if (err) {
-                    console.dir(err.stack);
-                    return;
+        if (req.body.name !== '') {
+            CController.insertCategory(req.body.name, (err) => {
+                if (!err) {
+                    res.send("<script>alert('정상적으로 생성되었습니다.');location.href='/admin/category'</script>");
+                } else {
+                    console.error(err.stack);
+                    res.send("<script>alert('카테고리 생성 중 에러 발생.');location.href='/admin/category'</script>");
                 }
             });
-            res.send("<script>alert('정상적으로 생성되었습니다.');location.href='/admin/category'</script>");
         } else {
             res.send("<script>alert('카테고리 이름이 잘못되었습니다.');history.back()</script>");
         }
+    } else {
+        res.send("<script>alert('접근 권한이 없습니다.');location.href='/admin'</script>");
     }
 });
 
-router.get('/uploaded', function (req, res, next) {
+router.get('/uploaded', (req, res, next) => {
     if (req.session.is_login === true) {
-        fs.readdir(__dirname + '/../uploads/', function (err, files) {
-            if (err) {
-                console.dir(err.stack);
-                res.render('error');
-                return;
+        fs.readdir(__dirname + '/../uploads/', (err, files) => {
+            if (!err) {
+                res.render('uploaded', { files: files });
+            } else {
+                console.error(err.stack);
+                res.send("<script>alert('업로드 중 에러 발생.');history.back()</script>");
             }
-            res.render('uploaded', { files: files });
         });
     } else {
         res.send("<script>alert('접근 권한이 없습니다.');location.href='/admin'</script>");
     }
 });
 
-router.get('/logout', function (req, res, next) {
+router.get('/logout', (req, res, next) => {
     if (req.session.is_login === true) {
-        req.session.destroy(function (err) {
-            if (err) {
-                console.dir(err.stack);
-                return;
+        req.session.destroy((err) => {
+            if (!err) {
+                res.send("<script>alert('정상적으로 로그아웃 되었습니다.');location.href='/'</script>");
+            } else {
+                console.error(err.stack);
+                res.send("<script>alert('로그아웃 중 에러 발생.');history.back()</script>");
             }
-            res.send("<script>alert('정상적으로 로그아웃 되었습니다.');location.href='/'</script>");
         });
     } else {
         res.send("<script>alert('접근 권한이 없습니다.');location.href='/admin'</script>");

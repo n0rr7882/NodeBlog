@@ -1,23 +1,25 @@
 var express = require('express');
 var Post = require('../models/postmodel');
+var PController = require('../controllers/postcontroller');
+
 
 var router = express.Router();
 
-router.get('/:postid/:commentid', function (req, res, next) {
-    Post.findOne({ _id: req.params.postid }, function (err, post) {
-        if (err) {
-            console.dir(err.stack);
-        }
-        if (post) {
-            post._doc.comments.pull({ _id: req.params.commentid });
-            post.save(function (err) {
-                if (err) {
-                    console.dir(err.stack);
-                    return;
+router.get('/:postId/:commentId', (req, res, next) => {
+    PController.findPostByObjectId(req.params.postId, (err, post) => {
+        if (!err) {
+            post._doc.comments.pull({ _id: req.params.commentId });
+            post.save((err) => {
+                if (!err) {
+                    res.send("<script>alert('정상적으로 삭제 되었습니다.');history.back()</script>");
                 } else {
-                    res.send("<script>alert('정상적으로 삭제 되었습니다.');location.href='/admin/comments'</script>");
+                    console.error(err.stack);
+                    res.send("<script>alert('알 수 없는 오류.');history.back()</script>");
                 }
             });
+        } else {
+            console.error(err.stack);
+            res.send("<script>alert('알 수 없는 오류.');history.back()</script>");
         }
     });
 });
