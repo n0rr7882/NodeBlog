@@ -10,12 +10,20 @@ router.get('/', (req, res, next) => {
         if (!err) {
             CController.findCategorys((err, categories) => {
                 if (!err) {
-                    res.render('index', {
-                        posts: posts,
-                        categories: categories,
-                        md: md,
-                        pageStatus: 0,
-                        categoryStatus: undefined
+                    PController.getNumberOfAllPosts((err, c) => {
+                        if (!err) {
+                            res.render('index', {
+                                posts: posts,
+                                categories: categories,
+                                md: md,
+                                pageStatus: 0,
+                                categoryStatus: undefined,
+                                numberOfPosts: c
+                            });
+                        } else {
+                            console.error(err.stack);
+                            res.render('error');
+                        }
                     });
                 } else {
                     console.error(err.stack);
@@ -34,12 +42,20 @@ router.get('/pages/:pNumber', (req, res, next) => {
         if (!err) {
             CController.findCategorys((err, categories) => {
                 if (!err) {
-                    res.render('index', {
-                        posts: posts,
-                        categories: categories,
-                        md: md,
-                        pageStatus: parseInt(req.params.pNumber),
-                        categoryStatus: undefined
+                    PController.getNumberOfAllPosts((err, c) => {
+                        if (!err) {
+                            res.render('index', {
+                                posts: posts,
+                                categories: categories,
+                                md: md,
+                                pageStatus: parseInt(req.params.pNumber),
+                                categoryStatus: undefined,
+                                numberOfPosts: c
+                            });
+                        } else {
+                            console.error(err.stack);
+                            res.render('error');
+                        }
                     });
                 } else {
                     console.error(err.stack);
@@ -58,12 +74,20 @@ router.get('/category/:category', (req, res, next) => {
         if (!err) {
             CController.findCategorys((err, categories) => {
                 if (!err) {
-                    res.render('index', {
-                        posts: posts,
-                        categories: categories,
-                        md: md,
-                        pageStatus: 0,
-                        categoryStatus: req.params.category
+                    PController.getNumberOfPostsByCategory(req.params.category, (err, c) => {
+                        if (!err) {
+                            res.render('index', {
+                                posts: posts,
+                                categories: categories,
+                                md: md,
+                                pageStatus: 0,
+                                categoryStatus: req.params.category,
+                                numberOfPosts: c
+                            });
+                        } else {
+                            console.error(err.stack);
+                            res.render('error');
+                        }
                     });
                 } else {
                     console.error(err.stack);
@@ -82,13 +106,21 @@ router.get('/category/:category/:pNumber', (req, res, next) => {
         if (!err) {
             CController.findCategorys((err, categories) => {
                 if (!err) {
-                    res.render('index', {
-                        posts: posts,
-                        categories: categories,
-                        md: md,
-                        pageStatus: parseInt(req.params.pNumber),
-                        categoryStatus: req.params.category
-                    });
+                    PController.getNumberOfPostsByCategory(req.params.category, (err, c) => {
+                        if (!err) {
+                            res.render('index', {
+                                posts: posts,
+                                categories: categories,
+                                md: md,
+                                pageStatus: parseInt(req.params.pNumber),
+                                categoryStatus: req.params.category,
+                                numberOfPosts: c
+                            });
+                        } else {
+                            console.error(err.stack);
+                            res.render('error');
+                        }
+                    })
                 } else {
                     console.error(err.stack);
                     res.render('error');

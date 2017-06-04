@@ -75,8 +75,12 @@
                 } else {
                     addr = '/pages/';
                 } %>
-                <% for(var i = 0; i < (posts.length / 5) + 1; i++) { %>
-                    <a href="<%= addr + i %>"><p><%= i + 1 %></p></a>
+                <% for(var i = 0; i < numberOfPosts / 5; i++) { %>
+                    <% if(pageStatus === i) { %>
+                        <a style="background: #87e7be" href="<%= addr + i %>"><p><%= i + 1 %></p></a>
+                    <% } else { %>
+                        <a href="<%= addr + i %>"><p><%= i + 1 %></p></a>
+                    <% } %>
                 <% } %>
             </div>
         </section>

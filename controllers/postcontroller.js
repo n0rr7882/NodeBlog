@@ -44,6 +44,16 @@ var controller = {
         Post.remove({ category: category }, (err) => {
             callback(err);
         });
+    },
+    getNumberOfAllPosts: (callback) => {
+        Post.count({}, (err, c) => {
+            callback(err, c);
+        });
+    },
+    getNumberOfPostsByCategory: (category, callback) => {
+        Post.count({ category: category }, (err, c) => {
+            callback(err, c);
+        });
     }
 };
 
