@@ -52,7 +52,7 @@
                         <div class="post-info">
                             <h2 class="post-title"><%= posts[i]._doc.title %></h2>
                             <p class="post-etc">
-                            <i class="fa fa-calendar" aria-hidden="true"></i> <%= posts[i]._doc.date.getFullYear()+'/'+posts[i]._doc.date.getMonth()+'/'+posts[i]._doc.date.getDate()+' '+posts[i]._doc.date.getHours()+':'+posts[i]._doc.date.getMinutes() %> <i class="fa fa-folder-open-o" aria-hidden="true"></i> <%= posts[i]._doc.category %> <i class="fa fa-eye" aria-hidden="true"></i> <%= posts[i]._doc.views %>
+                            <i class="fa fa-calendar" aria-hidden="true"></i> <%= posts[i]._doc.date.getFullYear()+'/'+(posts[i]._doc.date.getMonth()+1)+'/'+posts[i]._doc.date.getDate()+' '+posts[i]._doc.date.getHours()+':'+posts[i]._doc.date.getMinutes() %> <i class="fa fa-folder-open-o" aria-hidden="true"></i> <%= posts[i]._doc.category %> <i class="fa fa-eye" aria-hidden="true"></i> <%= posts[i]._doc.views %>
                             </p>
                             <p class="post-preview">
                             <% if(posts[i]._doc.content.length >= 150) { %>
